@@ -1,3 +1,3 @@
-struct FlowKit {
-    var text = "Hello, World!"
+public struct FlowKit {
+
 }
