@@ -14,6 +14,7 @@ extension FlowKit {
         internal var slope: Double
         
         /// Initialize a pipe object there the friction slope is known
+        /// - Warning: This initializer is only suited for pipes with a circular cross-sectional shape
         /// - Parameters:
         ///   - material: The material of the pipe
         ///   - dimension: The pipe dimension in meter
@@ -24,18 +25,21 @@ extension FlowKit {
             self.slope = slope
         }
         
-        /// Initialize a pipe object there the friction slope is unknown
+        /// Initialize a pipe object there the friction slope is unknown and is needed to be calculated
+        /// - Warning: This initializer is only suited for pipes with a circular cross-sectional shape
         /// - Parameters:
         ///   - material: The material of the pipe
         ///   - dimension: The pipe dimension in meter
         ///   - z1: The first height in meter
         ///   - z2: The second height in meter
-        ///   - lenght: The length of the pipe in meter
+        ///   - length: The length of the pipe in meter
         public init(material: Material, dimension: Double, z1: Double, z2: Double, length: Double) {
             self.material = material
             self.dimension = dimension
             
-            self.slope = fabs(z1 - z2)/length
+            // Calculates the slope by calculate the absolut value between
+            // the heights and divide it by its length
+            self.slope = fabs(z1 - z2) / length
         }
         
         public enum Material {
