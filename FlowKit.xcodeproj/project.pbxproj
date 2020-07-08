@@ -21,7 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		333DAACD24B6585500A53DA2 /* FlowRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DAACC24B6585500A53DA2 /* FlowRate.swift */; };
 		33B3B86424B3815B001ED77B /* PipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B3B86324B3815B001ED77B /* PipeData.swift */; };
+		33B3B86724B4E503001ED77B /* ColebrookWhite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B3B86624B4E503001ED77B /* ColebrookWhite.swift */; };
 		OBJ_23 /* FlowKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* FlowKit.swift */; };
 		OBJ_30 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_41 /* FlowKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* FlowKitTests.swift */; };
@@ -37,10 +39,19 @@
 			remoteGlobalIDString = "FlowKit::FlowKit";
 			remoteInfo = FlowKit;
 		};
+		33B3B86524B3815C001ED77B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "FlowKit::FlowKitTests";
+			remoteInfo = FlowKitTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		333DAACC24B6585500A53DA2 /* FlowRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRate.swift; sourceTree = "<group>"; };
 		33B3B86324B3815B001ED77B /* PipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeData.swift; sourceTree = "<group>"; };
+		33B3B86624B4E503001ED77B /* ColebrookWhite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColebrookWhite.swift; sourceTree = "<group>"; };
 		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"FlowKit::FlowKitTests::Product" /* FlowKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlowKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_12 /* FlowKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitTests.swift; sourceTree = "<group>"; };
@@ -69,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		333DAACA24B6581500A53DA2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				33B3B86624B4E503001ED77B /* ColebrookWhite.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,7 +115,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -105,7 +124,6 @@
 				OBJ_14 /* Products */,
 				OBJ_17 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -119,8 +137,10 @@
 		OBJ_8 /* FlowKit */ = {
 			isa = PBXGroup;
 			children = (
+				333DAACA24B6581500A53DA2 /* Helpers */,
 				OBJ_9 /* FlowKit.swift */,
 				33B3B86324B3815B001ED77B /* PipeData.swift */,
+				333DAACC24B6585500A53DA2 /* FlowRate.swift */,
 			);
 			name = FlowKit;
 			path = Sources/FlowKit;
@@ -192,7 +212,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_14 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -211,7 +231,9 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_23 /* FlowKit.swift in Sources */,
+				333DAACD24B6585500A53DA2 /* FlowRate.swift in Sources */,
 				33B3B86424B3815B001ED77B /* PipeData.swift in Sources */,
+				33B3B86724B4E503001ED77B /* ColebrookWhite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +260,7 @@
 		OBJ_35 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "FlowKit::FlowKitTests" /* FlowKitTests */;
-			targetProxy = "FlowKit::FlowKitTests" /* FlowKitTests */;
+			targetProxy = 33B3B86524B3815C001ED77B /* PBXContainerItemProxy */;
 		};
 		OBJ_45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
