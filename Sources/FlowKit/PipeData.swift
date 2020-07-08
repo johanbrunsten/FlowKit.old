@@ -42,9 +42,9 @@ extension FlowKit {
             self.slope = fabs(z1 - z2) / length
         }
         
-        public enum Material {
-            case concrete
-            case plastic
+        public enum Material: Double {
+            case concrete = 0.001
+            case plastic = 0.0002
         }
     }
 }
