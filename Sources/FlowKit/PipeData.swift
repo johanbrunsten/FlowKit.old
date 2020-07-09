@@ -11,18 +11,18 @@ extension FlowKit {
     public class PipeData {
         internal var material: Material
         internal var dimension: Double
-        internal var slope: Double
+        internal var gradient: Double
         
         /// Initialize a pipe object there the friction slope is known
         /// - Warning: This initializer is only suited for pipes with a circular cross-sectional shape
         /// - Parameters:
         ///   - material: The material of the pipe
         ///   - dimension: The pipe dimension in meter
-        ///   - slope: The hydraulic gradient, or friction slope, in meter per 100 meter
-        public init(material: Material, dimension: Double, slope: Double) {
+        ///   - gradient: The hydraulic gradient, or friction slope, in meter per 100 meter
+        public init(material: Material, dimension: Double, gradient: Double) {
             self.material = material
             self.dimension = dimension
-            self.slope = slope
+            self.gradient = gradient
         }
         
         /// Initialize a pipe object there the friction slope is unknown and is needed to be calculated
@@ -30,18 +30,19 @@ extension FlowKit {
         /// - Parameters:
         ///   - material: The material of the pipe
         ///   - dimension: The pipe dimension in meter
-        ///   - z1: The first height in meter
-        ///   - z2: The second height in meter
+        ///   - z1: The first level in meter
+        ///   - z2: The second level in meter
         ///   - length: The length of the pipe in meter
         public init(material: Material, dimension: Double, z1: Double, z2: Double, length: Double) {
             self.material = material
             self.dimension = dimension
             
-            // Calculates the slope by calculate the absolut value between
+            // Calculates the gradient by calculate the absolut value between
             // the heights and divide it by its length
-            self.slope = fabs(z1 - z2) / length
+            self.gradient = fabs(z1 - z2) / length
         }
         
+        /// The different pipe material with associated pipe roughness in meter
         public enum Material: Double {
             case concrete = 0.001
             case plastic = 0.0002

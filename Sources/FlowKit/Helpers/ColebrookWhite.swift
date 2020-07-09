@@ -16,8 +16,11 @@ internal class ColebrookWhite {
     /// - Returns: Returns a double with the velocity in m/s
     internal class func velocity(pipeData: FlowKit.PipeData) -> Double {
         let dimension = pipeData.dimension
-        let frictionSlope = pipeData.slope
+        let frictionSlope = pipeData.gradient
         let pipeRoughness = pipeData.material.rawValue
+        
+        // The equation for calculating the mean velocity using Colebrook-White:
+        // -2 * sqrt(2 * g * D * S)* log10((k / (3,7 * D) + (2,51 * viscosity / (D * sqrt(2 * g * D * S)))))
         
         let part1 = (2 * gravitationalAcceleration * dimension * frictionSlope).squareRoot()
         let part2 = pipeRoughness / (3.7 * dimension)

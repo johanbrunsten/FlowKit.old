@@ -4,7 +4,7 @@ import XCTest
 final class FlowKitTests: XCTestCase {
     
     func testPipeData() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, slope: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
         
         let flowRate = FlowKit.FlowRate()
         let capacity = flowRate.maximumFlowRate(pipeData: pipe)
