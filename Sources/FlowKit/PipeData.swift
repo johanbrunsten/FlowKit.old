@@ -9,7 +9,7 @@ import Foundation
 
 extension FlowKit {
     public class PipeData {
-        internal var material: Material
+        internal var material: Materials.Material
         internal var dimension: Double
         internal var hydraulicRadius: Double
         internal var gradient: Double
@@ -20,7 +20,7 @@ extension FlowKit {
         ///   - material: The material of the pipe
         ///   - dimension: The pipe dimension in meter
         ///   - gradient: The hydraulic gradient, or friction slope, in meter per 100 meter
-        public init(material: Material, dimension: Double, gradient: Double) {
+        public init(material: Materials.Material, dimension: Double, gradient: Double) {
             self.material = material
             self.dimension = dimension
             self.gradient = gradient
@@ -35,7 +35,7 @@ extension FlowKit {
         ///   - z1: The first level in meter
         ///   - z2: The second level in meter
         ///   - length: The length of the pipe in meter
-        public init(material: Material, dimension: Double, z1: Double, z2: Double, length: Double) {
+        public init(material: Materials.Material, dimension: Double, z1: Double, z2: Double, length: Double) {
             self.material = material
             self.dimension = dimension
             self.hydraulicRadius = dimension / 4
@@ -43,12 +43,6 @@ extension FlowKit {
             // Calculates the gradient by calculate the absolut value between
             // the heights and divide it by its length
             self.gradient = fabs(z1 - z2) / length
-        }
-        
-        /// The different pipe material with associated pipe roughness in meter
-        public enum Material: Double {
-            case concrete = 0.001
-            case plastic = 0.0002
         }
     }
 }

@@ -6,7 +6,7 @@ final class FlowKitTests: XCTestCase {
     func testPipeData() {
         let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
         
-        let velocity = ColebrookWhite.velocity(pipeData: pipe)
+        let velocity = ColebrookWhite.velocity(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(velocity * 100) / 100, 1.22)
         
     }
@@ -14,10 +14,10 @@ final class FlowKitTests: XCTestCase {
     func testPartFullPipe() {
         let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
         
-        let fullPipe = FlowKit.FlowRate.maximumFlowRate(pipeData: pipe)
+        let fullPipe = FlowKit.FlowRate.maximumFlowRate(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(fullPipe * 1000) / 1000, 0.048)
         
-        let partFull = FlowKit.FlowRate.partFullFlowRate(pipeData: pipe, flowDepth: 0.75)
+        let partFull = FlowKit.FlowRate.partFullFlowRate(pipeData: pipe, substance: .water, flowDepth: 0.75)
         XCTAssertEqual(round(partFull * 10000) / 10000, 0.0499)
         
     }
