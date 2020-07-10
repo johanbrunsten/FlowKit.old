@@ -11,6 +11,7 @@ extension FlowKit {
     public class FlowRate {
         /// A method that calculates the maximum flow-rate the pipe can drain
         /// - Parameter pipeData: A PipeData object
+        /// - Parameter substance: The substance what is sent throw the pipe
         /// - Returns: Returns a double with the flow-rate in m3/s
         public class func maximumFlowRate(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
             let velocity = ColebrookWhite.velocity(pipeData: pipeData, substance: substance)
@@ -23,6 +24,7 @@ extension FlowKit {
         /// A method that calculates the flow-rate in the pipe based on the flow depth
         /// - Parameters:
         ///   - pipeData: A PipeData object
+        ///   - substance: The substance what is sent throw the pipe
         ///   - flowDepth: A number between 0.0 and 1.0 indicating the flow depth
         /// - Returns: Retuns a double with the flow-rate in m3/s
         public class func partFullFlowRate(pipeData: FlowKit.PipeData, substance: Materials.Fluid, flowDepth: Double) -> Double {

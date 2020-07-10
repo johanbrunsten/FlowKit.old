@@ -12,6 +12,7 @@ internal class ColebrookWhite {
     
     /// A method that calculates the mean velocity using the Colebrook-White equation
     /// - Parameter pipeData: A PipeData object
+    /// - Parameter substance: The substance what is sent throw the pipe
     /// - Returns: Returns a double with the velocity in m/s
     internal class func velocity(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
         let hydraulicRadius = 4 * pipeData.hydraulicRadius
