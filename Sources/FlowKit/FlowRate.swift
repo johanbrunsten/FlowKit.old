@@ -19,5 +19,24 @@ extension FlowKit {
             let flowRate = velocity * pipeArea
             return flowRate
         }
+        
+        /// A method that calculates the flow-rate in the pipe based on the flow depth
+        /// - Parameters:
+        ///   - pipeData: A PipeData object
+        ///   - flowDepth: A number between 0.0 and 1.0 indicating the flow depth
+        /// - Returns: Retuns a double with the flow-rate in m3/s
+        public class func partFullFlowRate(pipeData: FlowKit.PipeData, flowDepth: Double) -> Double {
+            let partFullFlowDepth =  DegreesToRadians.radians(from: flowDepth * 360)
+            
+            let area = pow(pipeData.dimension, 2) / 8 * (partFullFlowDepth - sin(partFullFlowDepth))
+            let wettedPerimeter = pipeData.dimension * partFullFlowDepth / 2
+            let hydraulicRadius = area / wettedPerimeter
+            pipeData.hydraulicRadius = hydraulicRadius
+            
+            let velocity = ColebrookWhite.velocity(pipeData: pipeData)
+            let flowRate = velocity * area
+            
+            return flowRate
+        }
     }
 }
