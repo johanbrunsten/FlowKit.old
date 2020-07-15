@@ -14,7 +14,7 @@ extension FlowKit {
         /// - Parameter substance: The substance what is sent throw the pipe
         /// - Returns: Returns a double with the flow-rate in m3/s
         public class func maximumFlowRate(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
-            let velocity = ColebrookWhite.velocity(pipeData: pipeData, substance: substance)
+            let velocity = HydraulicEquations.velocity(pipeData: pipeData, substance: substance)
             let pipeArea = pow(pipeData.dimension, 2) * Double.pi / 4
 
             let flowRate = velocity * pipeArea
@@ -35,7 +35,7 @@ extension FlowKit {
             let hydraulicRadius = area / wettedPerimeter
             pipeData.hydraulicRadius = hydraulicRadius
             
-            let velocity = ColebrookWhite.velocity(pipeData: pipeData, substance: substance)
+            let velocity = HydraulicEquations.velocity(pipeData: pipeData, substance: substance)
             let flowRate = velocity * area
             
             return flowRate

@@ -6,7 +6,7 @@ final class FlowKitTests: XCTestCase {
     func testPipeData() {
         let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
         
-        let velocity = ColebrookWhite.velocity(pipeData: pipe, substance: .water)
+        let velocity = HydraulicEquations.velocity(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(velocity * 100) / 100, 1.22)
         
     }
@@ -27,10 +27,10 @@ final class FlowKitTests: XCTestCase {
     
     func testReynoldsNumber() {
         let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
-        let re = ColebrookWhite.reynoldsNumber(pipeData: pipe, substance: .water)
+        let re = HydraulicEquations.reynoldsNumber(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(re), 209119)
         
-        let moody = ColebrookWhite.calculateFrictionFactor(pipeData: pipe, substance: .water)
+        let moody = HydraulicEquations.calculateFrictionFactor(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(moody * 10000) / 10000, 0.0298)
     }
     
@@ -40,7 +40,7 @@ final class FlowKitTests: XCTestCase {
         let maxFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeData: pipe, substance: .water)
         XCTAssertEqual(round(maxFlowRate * 1000) / 1000, 0.112)
 
-        let brettings = Brettings.velocityForPartFullPipe(pipeData: pipe, substance: .water, flowRate: 0.06)
+        let brettings = HydraulicEquations.velocityForPartFullPipe(pipeData: pipe, substance: .water, flowRate: 0.06)
         XCTAssertEqual(round(brettings * 100) / 100, 2.06)
     }
 
