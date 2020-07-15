@@ -24,9 +24,30 @@ final class FlowKitTests: XCTestCase {
         XCTAssertEqual(round(partFull * 10000) / 10000, 0.0499)
         
     }
+    
+    func testReynoldsNumber() {
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
+        let re = ColebrookWhite.reynoldsNumber(pipeData: pipe, substance: .water)
+        XCTAssertEqual(round(re), 209119)
+        
+        let moody = ColebrookWhite.calculateFrictionFactor(pipeData: pipe, substance: .water)
+        XCTAssertEqual(round(moody * 10000) / 10000, 0.0298)
+    }
+    
+    func testBrettingsFormula() {
+        let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, z1: 0.12, z2: 0.42, length: 14.7)
+        
+        let maxFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeData: pipe, substance: .water)
+        XCTAssertEqual(round(maxFlowRate * 1000) / 1000, 0.112)
+
+        let brettings = Brettings.velocityForPartFullPipe(pipeData: pipe, substance: .water, flowRate: 0.06)
+        XCTAssertEqual(round(brettings * 100) / 100, 2.06)
+    }
 
     static var allTests = [
         ("testPipeData", testPipeData),
-        ("testPartFullPipe", testPartFullPipe)
+        ("testPartFullPipe", testPartFullPipe),
+        ("testReynoldsNumber", testReynoldsNumber),
+        ("testBrettingsFormula", testBrettingsFormula)
     ]
 }

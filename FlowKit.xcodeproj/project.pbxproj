@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		3315D99624B8744D003AE0D8 /* Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315D99524B8744D003AE0D8 /* Materials.swift */; };
+		3315D99A24BD1595003AE0D8 /* Brettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315D99924BD1595003AE0D8 /* Brettings.swift */; };
 		333DAACD24B6585500A53DA2 /* FlowRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DAACC24B6585500A53DA2 /* FlowRate.swift */; };
 		333DAAFA24B768B600A53DA2 /* DegreesToRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DAAF924B768B600A53DA2 /* DegreesToRadians.swift */; };
 		33B3B86424B3815B001ED77B /* PipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B3B86324B3815B001ED77B /* PipeData.swift */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		3315D99524B8744D003AE0D8 /* Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Materials.swift; sourceTree = "<group>"; };
+		3315D99924BD1595003AE0D8 /* Brettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brettings.swift; sourceTree = "<group>"; };
 		333DAACC24B6585500A53DA2 /* FlowRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRate.swift; sourceTree = "<group>"; };
 		333DAAF924B768B600A53DA2 /* DegreesToRadians.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreesToRadians.swift; sourceTree = "<group>"; };
 		33B3B86324B3815B001ED77B /* PipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeData.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				33B3B86624B4E503001ED77B /* ColebrookWhite.swift */,
 				333DAAF924B768B600A53DA2 /* DegreesToRadians.swift */,
 				3315D99524B8744D003AE0D8 /* Materials.swift */,
+				3315D99924BD1595003AE0D8 /* Brettings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				333DAACD24B6585500A53DA2 /* FlowRate.swift in Sources */,
 				33B3B86424B3815B001ED77B /* PipeData.swift in Sources */,
 				33B3B86724B4E503001ED77B /* ColebrookWhite.swift in Sources */,
+				3315D99A24BD1595003AE0D8 /* Brettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
