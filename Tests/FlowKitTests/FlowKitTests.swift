@@ -42,12 +42,12 @@ final class FlowKitTests: XCTestCase {
     
     func testBrettingsFormula() {
         let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, z1: 0.12, z2: 0.42, length: 14.7)
-        let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: nil)
+        let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: 0.06)
         
         let maxFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
         XCTAssertEqual(round(maxFlowRate * 1000) / 1000, 0.112)
 
-        let brettings = HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject, flowRate: 0.06)
+        let brettings = HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject)
         XCTAssertEqual(round(brettings * 100) / 100, 2.06)
     }
 

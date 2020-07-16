@@ -106,12 +106,17 @@ internal class HydraulicEquations {
     /// - Parameters:
     ///   - pipeData: A PipeData object
     ///   - substance: The substance what is sent throw the pipe
-    ///   - flowRate: The current flow-rate in the pipe in m3/s
+    ///   - currentFlowRate: The current flow-rate in the pipe in m3/s
     /// - Returns: Retuns a double with the velocity in m/s
-    internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject, flowRate: Double) -> Double {
+    internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject) -> Double {
+        guard let currentFlowRate = pipeObject.currentFlowRate else {
+            // The pipe object have not been assigned a current flow-rate value
+            // TODO: How to handle error messaging
+            return -1
+        }
         let maximumFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
         // The percentage value of the flow-rate
-        let partFullFlowRate = flowRate / maximumFlowRate
+        let partFullFlowRate = currentFlowRate / maximumFlowRate
         
         // Check if the flow-rate is higher then the pipes capacity
         // If so - return a negative value
@@ -131,7 +136,7 @@ internal class HydraulicEquations {
         
         // The velocity is calculated by dividing the flow-rate with
         // the just calculated area
-        let velocity = flowRate / area
+        let velocity = currentFlowRate / area
         
         return velocity
     }
