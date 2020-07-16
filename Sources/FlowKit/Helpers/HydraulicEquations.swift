@@ -13,14 +13,13 @@ internal class HydraulicEquations {
         // MARK: - Colebrook-White
     
     /// A method that calculates the mean velocity using the Colebrook-White equation
-    /// - Parameter pipeData: A PipeData object
-    /// - Parameter substance: The substance what is sent throw the pipe
+    /// - Parameter pipeObject: A PipeObject
     /// - Returns: Returns a double with the velocity in m/s
-    internal class func velocity(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
-        let hydraulicRadius = 4 * pipeData.hydraulicRadius
-        let frictionSlope = pipeData.gradient
-        let pipeRoughness = pipeData.material.rawValue
-        let kinematicViscosity = substance.rawValue
+    internal class func velocity(pipeObject: FlowKit.PipeObject) -> Double {
+        let hydraulicRadius = 4 * pipeObject.pipeData.hydraulicRadius
+        let frictionSlope = pipeObject.pipeData.gradient
+        let pipeRoughness = pipeObject.pipeData.material.rawValue
+        let kinematicViscosity = pipeObject.fluid.rawValue
         
         // The equation for calculating the mean velocity using Colebrook-White:
         // -2 * sqrt(2 * g * D * S)* log10((k / (3,7 * D) + (2,51 * viscosity / (D * sqrt(2 * g * D * S)))))
@@ -42,10 +41,10 @@ internal class HydraulicEquations {
     ///   - pipeData: A PipeData object
     ///   - substance: The substance what is sent throw the pipe
     /// - Returns: Returns reynolds number as a double
-    internal class func reynoldsNumber(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
-        let dimension = pipeData.dimension
-        let kinematicViscosity = substance.rawValue
-        let velocity = HydraulicEquations.velocity(pipeData: pipeData, substance: substance)
+    internal class func reynoldsNumber(pipeObject: FlowKit.PipeObject) -> Double {
+        let dimension = pipeObject.pipeData.dimension
+        let kinematicViscosity = pipeObject.fluid.rawValue
+        let velocity = HydraulicEquations.velocity(pipeObject: pipeObject)
         
         let reynoldsNumber = velocity * dimension / kinematicViscosity
         return reynoldsNumber
@@ -56,13 +55,13 @@ internal class HydraulicEquations {
     ///   - pipeData: A PipeData object
     ///   - substance: The substance what is sent throw the pipe
     /// - Returns: Return the fricton factor as a double
-    internal class func calculateFrictionFactor(pipeData: FlowKit.PipeData, substance: Materials.Fluid) -> Double {
+    internal class func calculateFrictionFactor(pipeObject: FlowKit.PipeObject) -> Double {
         // Special thank to
         // http://maleyengineeringprojects.weebly.com/moody-chart-calculator-design.html
         // for providing the formula
         
         // Calculate reynolds number
-        let reynoldsNumber = Self.reynoldsNumber(pipeData: pipeData, substance: substance)
+        let reynoldsNumber = Self.reynoldsNumber(pipeObject: pipeObject)
         
         if (reynoldsNumber <= 2300) {
             // Laminar flow
@@ -77,7 +76,7 @@ internal class HydraulicEquations {
         }
         
         // Turbulent flow
-        let relativeRoughness = pipeData.material.rawValue / pipeData.dimension
+        let relativeRoughness = pipeObject.pipeData.material.rawValue / pipeObject.pipeData.dimension
         
         var x: Double
         var y: Double
@@ -109,8 +108,8 @@ internal class HydraulicEquations {
     ///   - substance: The substance what is sent throw the pipe
     ///   - flowRate: The current flow-rate in the pipe in m3/s
     /// - Returns: Retuns a double with the velocity in m/s
-    internal class func velocityForPartFullPipe(pipeData: FlowKit.PipeData, substance: Materials.Fluid, flowRate: Double) -> Double {
-        let maximumFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeData: pipeData, substance: substance)
+    internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject, flowRate: Double) -> Double {
+        let maximumFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
         // The percentage value of the flow-rate
         let partFullFlowRate = flowRate / maximumFlowRate
         
@@ -122,13 +121,13 @@ internal class HydraulicEquations {
         }
         
         // The depth of flow is calculated using Betting's equation
-        let depthOfFlow = pipeData.dimension / Double.pi * acos(3.125 - (pow(3.125, 2) - 5.25 + 12.5 * partFullFlowRate).squareRoot())
+        let depthOfFlow = pipeObject.pipeData.dimension / Double.pi * acos(3.125 - (pow(3.125, 2) - 5.25 + 12.5 * partFullFlowRate).squareRoot())
         
         // Calculate the part-full cross-sectional area
         // θ = 2 * cos^-1[1 - 2d / D]
         // A = D^2 / 8 * (θ - sin[θ])
-        let angel = 2 * acos(1 - 2 * depthOfFlow / pipeData.dimension)
-        let area = pow(pipeData.dimension, 2) / 8 * (angel - sin(angel))
+        let angel = 2 * acos(1 - 2 * depthOfFlow / pipeObject.pipeData.dimension)
+        let area = pow(pipeObject.pipeData.dimension, 2) / 8 * (angel - sin(angel))
         
         // The velocity is calculated by dividing the flow-rate with
         // the just calculated area
