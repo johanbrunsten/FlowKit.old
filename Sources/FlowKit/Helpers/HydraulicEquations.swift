@@ -55,7 +55,7 @@ internal class HydraulicEquations {
     ///   - pipeData: A PipeData object
     ///   - substance: The substance what is sent throw the pipe
     /// - Returns: Return the fricton factor as a double
-    internal class func calculateFrictionFactor(pipeObject: FlowKit.PipeObject) -> Double {
+    internal class func calculateFrictionFactor(pipeObject: FlowKit.PipeObject) {
         // Special thank to
         // http://maleyengineeringprojects.weebly.com/moody-chart-calculator-design.html
         // for providing the formula
@@ -65,14 +65,11 @@ internal class HydraulicEquations {
         
         if (reynoldsNumber <= 2300) {
             // Laminar flow
-            return (64 / reynoldsNumber)
+            pipeObject.frictionFactor = 64 / reynoldsNumber
         } else if (reynoldsNumber < 4000) {
             // Transitional flow aka critical zone
-            
             // A friction factor can't be calculated
-            // without testing
-            // TODO: How to handle error messaging
-            return -1.0
+            pipeObject.frictionFactor = nil
         }
         
         // Turbulent flow
@@ -89,7 +86,7 @@ internal class HydraulicEquations {
         b = 2.51 / reynoldsNumber
         i = 3 // Number of iterations for Newton's Method
         
-        x = -1.8 * (log10((6.9 / reynoldsNumber) + (pow(a, 1.11))))
+        x = -1.8 * (log10(6.9 / reynoldsNumber) + pow(a, 1.11))
         
         for _ in 0...i {
             y = x + (2 * log10(a + (b * x)))
@@ -97,7 +94,7 @@ internal class HydraulicEquations {
             x = x - (y / dy)
         }
         
-        return 1 / (pow(x,2))
+        pipeObject.frictionFactor = 1 / pow(x, 2)
     }
     
     // MARK: - Brettings
@@ -108,21 +105,22 @@ internal class HydraulicEquations {
     ///   - substance: The substance what is sent throw the pipe
     ///   - currentFlowRate: The current flow-rate in the pipe in m3/s
     /// - Returns: Retuns a double with the velocity in m/s
-    internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject) -> Double {
+    internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject) {
         guard let currentFlowRate = pipeObject.currentFlowRate else {
             // The pipe object have not been assigned a current flow-rate value
             // TODO: How to handle error messaging
-            return -1
+            return
         }
+        
         let maximumFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
         // The percentage value of the flow-rate
         let partFullFlowRate = currentFlowRate / maximumFlowRate
         
         // Check if the flow-rate is higher then the pipes capacity
-        // If so - return a negative value
+        // If so - return nil
         // TODO: How to handle error messaging
         if partFullFlowRate > 1 {
-            return -1
+            pipeObject.currentVelocity = nil
         }
         
         // The depth of flow is calculated using Betting's equation
@@ -138,6 +136,6 @@ internal class HydraulicEquations {
         // the just calculated area
         let velocity = currentFlowRate / area
         
-        return velocity
+        pipeObject.currentVelocity = velocity
     }
 }

@@ -36,8 +36,11 @@ final class FlowKitTests: XCTestCase {
         let re = HydraulicEquations.reynoldsNumber(pipeObject: pipeObject)
         XCTAssertEqual(round(re), 209119)
         
-        let moody = HydraulicEquations.calculateFrictionFactor(pipeObject: pipeObject)
-        XCTAssertEqual(round(moody * 10000) / 10000, 0.0298)
+        HydraulicEquations.calculateFrictionFactor(pipeObject: pipeObject)
+        guard let frictionFactor = pipeObject.frictionFactor else {
+            return
+        }
+        XCTAssertEqual(round(frictionFactor * 10000) / 10000, 0.0298)
     }
     
     func testBrettingsFormula() {
@@ -47,8 +50,11 @@ final class FlowKitTests: XCTestCase {
         let maxFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
         XCTAssertEqual(round(maxFlowRate * 1000) / 1000, 0.112)
 
-        let brettings = HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject)
-        XCTAssertEqual(round(brettings * 100) / 100, 2.06)
+        HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject)
+        guard let currentVelocity = pipeObject.currentVelocity else {
+            return
+        }
+        XCTAssertEqual(round(currentVelocity * 100) / 100, 2.06)
     }
 
     static var allTests = [
