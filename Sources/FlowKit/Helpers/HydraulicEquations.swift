@@ -15,7 +15,7 @@ internal class HydraulicEquations {
     /// A method that calculates the mean velocity using the Colebrook-White equation
     /// - Parameter pipeObject: A PipeObject
     internal class func velocityForMaximumFlowRate(pipeObject: FlowKit.PipeObject) {
-        let hydraulicRadius = 4 * pipeObject.pipeData.hydraulicRadius
+        let hydraulicRadius = 4 * pipeObject.hydraulicRadius
         let frictionSlope = pipeObject.pipeData.gradient
         let pipeRoughness = pipeObject.pipeData.material.rawValue
         let kinematicViscosity = pipeObject.fluid.rawValue

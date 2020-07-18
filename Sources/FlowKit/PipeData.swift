@@ -11,7 +11,6 @@ extension FlowKit {
     public class PipeData {
         internal var material: Materials.Material
         internal var dimension: Double
-        internal var hydraulicRadius: Double
         internal var gradient: Double
         
         /// Initialize a pipe object there the friction slope is known
@@ -24,7 +23,6 @@ extension FlowKit {
             self.material = material
             self.dimension = dimension
             self.gradient = gradient
-            self.hydraulicRadius = dimension / 4
         }
         
         /// Initialize a pipe object there the friction slope is unknown and is needed to be calculated
@@ -38,7 +36,6 @@ extension FlowKit {
         public init(material: Materials.Material, dimension: Double, z1: Double, z2: Double, length: Double) {
             self.material = material
             self.dimension = dimension
-            self.hydraulicRadius = dimension / 4
             
             // Calculates the gradient by calculate the absolut value between
             // the heights and divide it by its length

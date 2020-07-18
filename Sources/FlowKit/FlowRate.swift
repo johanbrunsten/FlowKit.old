@@ -33,7 +33,7 @@ extension FlowKit {
             let area = pow(pipeObject.pipeData.dimension, 2) / 8 * (partFullFlowDepth - sin(partFullFlowDepth))
             let wettedPerimeter = pipeObject.pipeData.dimension * partFullFlowDepth / 2
             let hydraulicRadius = area / wettedPerimeter
-            pipeObject.pipeData.hydraulicRadius = hydraulicRadius
+            pipeObject.hydraulicRadius = hydraulicRadius
             
             HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject)
             guard let velocity = pipeObject.currentVelocity else {
