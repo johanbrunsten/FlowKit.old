@@ -14,8 +14,7 @@ internal class HydraulicEquations {
     
     /// A method that calculates the mean velocity using the Colebrook-White equation
     /// - Parameter pipeObject: A PipeObject
-    /// - Returns: Returns a double with the velocity in m/s
-    internal class func velocity(pipeObject: FlowKit.PipeObject) -> Double {
+    internal class func velocityForMaximumFlowRate(pipeObject: FlowKit.PipeObject) {
         let hydraulicRadius = 4 * pipeObject.pipeData.hydraulicRadius
         let frictionSlope = pipeObject.pipeData.gradient
         let pipeRoughness = pipeObject.pipeData.material.rawValue
@@ -29,7 +28,7 @@ internal class HydraulicEquations {
         let part3 = (2.51 * kinematicViscosity / (hydraulicRadius * part1))
         let velocity = -2 * part1 * log10(part2 + part3)
         
-        return velocity
+        pipeObject.maximumFlowRateVelocity = velocity
     }
     
     // MARK: - Moody Chart Calculator
@@ -38,13 +37,12 @@ internal class HydraulicEquations {
     
     /// A method that calculates reynolds number
     /// - Parameters:
-    ///   - pipeData: A PipeData object
-    ///   - substance: The substance what is sent throw the pipe
+    ///   - pipeObject: A PipeObject
     /// - Returns: Returns reynolds number as a double
-    internal class func reynoldsNumber(pipeObject: FlowKit.PipeObject) -> Double {
+    internal class func reynoldsNumber(pipeObject: FlowKit.PipeObject) -> Double? {
         let dimension = pipeObject.pipeData.dimension
         let kinematicViscosity = pipeObject.fluid.rawValue
-        let velocity = HydraulicEquations.velocity(pipeObject: pipeObject)
+        guard let velocity = pipeObject.currentVelocity else { return nil }
         
         let reynoldsNumber = velocity * dimension / kinematicViscosity
         return reynoldsNumber
@@ -52,16 +50,16 @@ internal class HydraulicEquations {
     
     /// A method for calculating the friction factor
     /// - Parameters:
-    ///   - pipeData: A PipeData object
-    ///   - substance: The substance what is sent throw the pipe
-    /// - Returns: Return the fricton factor as a double
+    ///   - pipeObject: A PipeObject
     internal class func calculateFrictionFactor(pipeObject: FlowKit.PipeObject) {
         // Special thank to
         // http://maleyengineeringprojects.weebly.com/moody-chart-calculator-design.html
         // for providing the formula
         
         // Calculate reynolds number
-        let reynoldsNumber = Self.reynoldsNumber(pipeObject: pipeObject)
+        guard let reynoldsNumber = Self.reynoldsNumber(pipeObject: pipeObject) else {
+            return
+        }
         
         if (reynoldsNumber <= 2300) {
             // Laminar flow
@@ -101,10 +99,7 @@ internal class HydraulicEquations {
     
     /// A method that calculates the velocity in a part-full pipe
     /// - Parameters:
-    ///   - pipeData: A PipeData object
-    ///   - substance: The substance what is sent throw the pipe
-    ///   - currentFlowRate: The current flow-rate in the pipe in m3/s
-    /// - Returns: Retuns a double with the velocity in m/s
+    ///   - pipeObject: A PipeObject
     internal class func velocityForPartFullPipe(pipeObject: FlowKit.PipeObject) {
         guard let currentFlowRate = pipeObject.currentFlowRate else {
             // The pipe object have not been assigned a current flow-rate value
@@ -112,7 +107,10 @@ internal class HydraulicEquations {
             return
         }
         
-        let maximumFlowRate = FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
+        FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
+        guard let maximumFlowRate = pipeObject.maximumFlowRate else {
+            return
+        }
         // The percentage value of the flow-rate
         let partFullFlowRate = currentFlowRate / maximumFlowRate
         
