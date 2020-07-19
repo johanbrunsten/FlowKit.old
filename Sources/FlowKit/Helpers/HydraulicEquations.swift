@@ -107,7 +107,12 @@ internal class HydraulicEquations {
             return
         }
         
-        FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
+        do {
+            try FlowKit.FlowRate.maximumFlowRate(pipeObject: pipeObject)
+        } catch {
+            print(error)
+        }
+        
         guard let maximumFlowRate = pipeObject.maximumFlowRate else {
             return
         }
@@ -128,11 +133,14 @@ internal class HydraulicEquations {
         // θ = 2 * cos^-1[1 - 2d / D]
         // A = D^2 / 8 * (θ - sin[θ])
         let angel = 2 * acos(1 - 2 * depthOfFlow / pipeObject.pipeData.dimension)
-        let area = pow(pipeObject.pipeData.dimension, 2) / 8 * (angel - sin(angel))
+        pipeObject.currentArea = pow(pipeObject.pipeData.dimension, 2) / 8 * (angel - sin(angel))
         
         // The velocity is calculated by dividing the flow-rate with
         // the just calculated area
-        let velocity = currentFlowRate / area
+        guard let currentArea = pipeObject.currentArea else {
+            return
+        }
+        let velocity = currentFlowRate / currentArea
         
         pipeObject.currentVelocity = velocity
     }

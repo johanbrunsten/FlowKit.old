@@ -17,6 +17,7 @@ extension FlowKit {
         internal var maximumFlowRateVelocity: Double?
         internal var currentFlowRate: Double?
         internal var currentVelocity: Double?
+        internal var currentArea: Double?
         internal var frictionFactor: Double?
         
         public init(pipeData: FlowKit.PipeData, fluid: Materials.Fluid) {
