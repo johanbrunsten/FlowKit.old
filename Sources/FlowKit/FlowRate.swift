@@ -14,19 +14,6 @@ extension FlowKit {
     }
     
     public class FlowRate {
-        /// A method that calculates the maximum flow-rate the pipe can drain
-        /// - Parameter pipeObject: A PipeObject
-        public class func maximumFlowRate(pipeObject: FlowKit.PipeObject) throws {
-            HydraulicEquations.velocityForMaximumFlowRate(pipeObject: pipeObject)
-            guard let velocity = pipeObject.maximumFlowRateVelocity else {
-                throw FlowRateError.cantCalculateTheVelocity
-            }
-            let pipeArea = pow(pipeObject.pipeData.dimension, 2) * Double.pi / 4
-
-            let flowRate = velocity * pipeArea
-            pipeObject.maximumFlowRate = flowRate
-        }
-        
         /// A method that calculates the flow-rate in the pipe based on the flow depth
         /// - Parameters:
         ///   - pipeObject: A PipeObject
@@ -39,7 +26,7 @@ extension FlowKit {
             guard let currentArea = pipeObject.currentArea else {
                 throw FlowRateError.cantCalculateTheArea
             }
-            pipeObject.hydraulicRadius = currentArea / wettedPerimeter
+            pipeObject.currentHydraulicRadius = currentArea / wettedPerimeter
             
             HydraulicEquations.velocityForPartFullPipe(pipeObject: pipeObject)
             guard let velocity = pipeObject.currentVelocity else {
