@@ -15,15 +15,20 @@ internal class HydraulicEquations {
     /// A method that calculates the mean velocity using the Colebrook-White equation
     /// - Parameter pipeObject: A PipeObject
     internal class func velocityForMaximumFlowRate(pipeObject: FlowKit.PipeObject) {
-        let dimension = pipeObject.pipeData.dimension
-        let frictionSlope = pipeObject.pipeData.gradient
+        var dimension: Double
+        let gradient = pipeObject.pipeData.gradient
         let pipeRoughness = pipeObject.pipeData.material.rawValue
         let kinematicViscosity = pipeObject.fluid.rawValue
+        
+        switch pipeObject.pipeData.pipeShape {
+        case .circular:
+            dimension = pipeObject.pipeData.dimension
+        }
         
         // The equation for calculating the mean velocity using Colebrook-White:
         // -2 * sqrt(2 * g * D * S)* log10((k / (3,7 * D) + (2,51 * viscosity / (D * sqrt(2 * g * D * S)))))
         
-        let part1 = (2 * gravitationalAcceleration * dimension * frictionSlope).squareRoot()
+        let part1 = (2 * gravitationalAcceleration * dimension * gradient).squareRoot()
         let part2 = pipeRoughness / (3.7 * dimension)
         let part3 = (2.51 * kinematicViscosity / (dimension * part1))
         let velocity = -2 * part1 * log10(part2 + part3)
@@ -118,14 +123,17 @@ internal class HydraulicEquations {
             pipeObject.currentVelocity = nil
         }
         
-        // The depth of flow is calculated using Betting's equation
-        let depthOfFlow = pipeObject.pipeData.dimension / Double.pi * acos(3.125 - (pow(3.125, 2) - 5.25 + 12.5 * partFullFlowRate).squareRoot())
-        
-        // Calculate the part-full cross-sectional area
-        // θ = 2 * cos^-1[1 - 2d / D]
-        // A = D^2 / 8 * (θ - sin[θ])
-        let angel = 2 * acos(1 - 2 * depthOfFlow / pipeObject.pipeData.dimension)
-        pipeObject.currentArea = pow(pipeObject.pipeData.dimension, 2) / 8 * (angel - sin(angel))
+        switch pipeObject.pipeData.pipeShape {
+        case .circular:
+            // The depth of flow is calculated using Betting's equation
+            let depthOfFlow = pipeObject.pipeData.dimension / Double.pi * acos(3.125 - (pow(3.125, 2) - 5.25 + 12.5 * partFullFlowRate).squareRoot())
+            
+            // Calculate the part-full cross-sectional area
+            // θ = 2 * cos^-1[1 - 2d / D]
+            // A = D^2 / 8 * (θ - sin[θ])
+            let angel = 2 * acos(1 - 2 * depthOfFlow / pipeObject.pipeData.dimension)
+            pipeObject.currentArea = pow(pipeObject.pipeData.dimension, 2) / 8 * (angel - sin(angel))
+        }
         
         // The velocity is calculated by dividing the flow-rate with
         // the just calculated area

@@ -4,7 +4,7 @@ import XCTest
 final class FlowKitTests: XCTestCase {
     
     func testPipeData() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: nil)
         XCTAssertEqual(round(pipeObject.maximumFlowRateVelocity * 100) / 100, 1.22)
         
@@ -15,7 +15,7 @@ final class FlowKitTests: XCTestCase {
     }
     
     func testPartFullPipe() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
         var pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: nil)
         XCTAssertEqual(round(pipeObject.maximumFlowRate * 1000) / 1000, 0.048)
         
@@ -40,7 +40,7 @@ final class FlowKitTests: XCTestCase {
     }
     
     func testReynoldsNumber() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: nil)
         
         guard let re = HydraulicEquations.reynoldsNumber(pipeObject: pipeObject) else {
@@ -56,7 +56,7 @@ final class FlowKitTests: XCTestCase {
     }
     
     func testBrettingsFormula() {
-        let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, z1: 0.12, z2: 0.42, length: 14.7)
+        let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, pipeShape: .circular, z1: 0.12, z2: 0.42, length: 14.7)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlowRate: 0.06)
         
         let maxFlowRate = pipeObject.maximumFlowRate
