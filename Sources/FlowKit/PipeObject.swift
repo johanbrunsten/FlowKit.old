@@ -20,7 +20,7 @@ extension FlowKit {
         but the value is stored in _depth
         */
         private var _depth: Double?
-        internal var depth: Double? {
+        public var depth: Double? {
             set {
                 // Check so that the new value isn't larger then the pipes dimension
                 if newValue ?? .nan <= pipeData.dimension {
@@ -44,7 +44,7 @@ extension FlowKit {
          but the value is stored in _currentFlowRate
          */
         private var _currentFlowRate: Double?
-        internal var currentFlowRate: Double? {
+        public var currentFlowRate: Double? {
             set {
                 // Check so that the new value isn't larger then the pipes capacity
                 if newValue ?? .nan <= self.fullPipeFlowRate {
@@ -63,7 +63,7 @@ extension FlowKit {
             }
         }
         
-        private(set) lazy var fullPipeVelocity: Double = {
+        public lazy var fullPipeVelocity: Double = {
             let gravitationalAcceleration = 9.82
             let diameter = pipeData.dimension
             let gradient = pipeData.gradient
@@ -81,7 +81,7 @@ extension FlowKit {
             }
         }()
         
-        private(set) lazy var fullPipeFlowRate: Double = {
+        public lazy var fullPipeFlowRate: Double = {
             // The equation works for all pipe shapes
             let area = Double.pi * pow(pipeData.dimension, 2) / 4
             let flowRate = fullPipeVelocity * area
@@ -96,7 +96,7 @@ extension FlowKit {
             }
         }()
         
-        private var currentVelocity: Double? {
+        public var currentVelocity: Double? {
             get {
                 // The equation works for all pipe shapes
                 guard let currentFlowRate = self.currentFlowRate, let area = self.area else { return nil }
@@ -133,7 +133,7 @@ extension FlowKit {
             }
         }
         
-        internal var frictionFactor: Double? {
+        public var frictionFactor: Double? {
             // Not certain that the equation works for different pipe shapes then circular.
             // I put it as an attribut for circular pipe shape for the moment.
             get {
