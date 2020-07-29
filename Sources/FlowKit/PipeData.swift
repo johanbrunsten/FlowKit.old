@@ -10,7 +10,7 @@ import Foundation
 extension FlowKit {
     public class PipeData {
         internal var material: Materials.Material
-        internal var dimension: Double
+        public var dimension: Double
         internal var pipeShape: PipeShape
         internal var gradient: Double
         

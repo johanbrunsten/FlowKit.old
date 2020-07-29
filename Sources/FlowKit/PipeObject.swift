@@ -11,7 +11,7 @@ extension FlowKit {
     public class PipeObject {
         // MARK: - Properties
         
-        internal var pipeData: PipeData
+        public var pipeData: PipeData
         internal var fluid: Materials.Fluid
         
         /*
