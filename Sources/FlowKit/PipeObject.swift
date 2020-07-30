@@ -105,7 +105,7 @@ extension FlowKit {
             }
         }
         
-         private var area: Double? {
+         public var area: Double? {
             get {
                 switch pipeData.pipeShape {
                 case .circular:
