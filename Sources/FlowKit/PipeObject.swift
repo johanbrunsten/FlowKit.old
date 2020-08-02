@@ -202,7 +202,7 @@ extension FlowKit {
         
         /// Method for calculate the current flow in the pipe if the depth is known
         /// - Returns: Returns a double for the flow in m3/s
-        private func calcFlowRate() -> Double? {
+        public func calcFlowRate() -> Double? {
             guard let depth = self.depth else { return nil }
             let partFull = depth / self.pipeData.dimension
             
