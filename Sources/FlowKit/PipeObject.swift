@@ -88,13 +88,19 @@ extension FlowKit {
             return flowRate
         }()
         
-        private lazy var theta: Double? = {
-            switch pipeData.pipeShape {
-            case .circular:
-                guard let depth = self.depth else { return nil }
-                return 2 * acos(1 - 2 * depth / self.pipeData.dimension)
+        private var _theta: Double?
+        private var theta: Double? {
+            set {
+                switch pipeData.pipeShape {
+                case .circular:
+                    guard let depth = self.depth else { return }
+                    _theta = 2 * acos(1 - 2 * depth / self.pipeData.dimension)
+                }
+            } get {
+                return _theta
             }
-        }()
+
+        }
         
         public var currentVelocity: Double? {
             get {
