@@ -81,12 +81,14 @@ extension FlowKit {
             }
         }()
         
-        public lazy var fullPipeFlowRate: Double = {
-            // The equation works for all pipe shapes
-            let area = Double.pi * pow(pipeData.dimension, 2) / 4
-            let flowRate = fullPipeVelocity * area
-            return flowRate
-        }()
+        public var fullPipeFlowRate: Double {
+            get {
+                // The equation works for all pipe shapes
+                let area = Double.pi * pow(pipeData.dimension, 2) / 4
+                let flowRate = fullPipeVelocity * area
+                return flowRate
+            }
+        }
         
         private var _theta: Double?
         private var theta: Double? {
