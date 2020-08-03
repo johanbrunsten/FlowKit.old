@@ -8,13 +8,9 @@
 import Foundation
 
 extension FlowKit {
-    public struct PipeData {
+    public class PipeData {
         internal var material: Materials.Material
-        public var dimension: Double {
-            didSet {
-                print("Dimension changed (\(self.dimension)")
-            }
-        }
+        public var dimension: Double
         internal var pipeShape: PipeShape
         internal var gradient: Double
         

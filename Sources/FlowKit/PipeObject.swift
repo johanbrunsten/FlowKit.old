@@ -8,7 +8,7 @@
 import Foundation
 
 extension FlowKit {
-    public struct PipeObject {
+    public class PipeObject {
         // MARK: - Properties
         
         public var pipeData: PipeData
@@ -204,6 +204,7 @@ extension FlowKit {
         public func calcFlowRate() -> Double? {
             guard let depth = self.depth else { return nil }
             let partFull = depth / self.pipeData.dimension
+            print("partFull is depth: \(depth) / \(pipeData.dimension)")
             
             // The flow is calculated using Bretting's equation
             let partFlowRate = 0.46 - 0.5 * cos(Double.pi * partFull) + 0.04 * cos(2 * Double.pi * partFull)
