@@ -11,12 +11,7 @@ extension FlowKit {
     public class PipeObject {
         // MARK: - Properties
         
-        public var pipeData: PipeData {
-            didSet {
-                print("Calculate current flow-rate")
-                currentFlowRate = calcFlowRate()
-            }
-        }
+        public var pipeData: PipeData
         internal var fluid: Materials.Fluid
         
         /*

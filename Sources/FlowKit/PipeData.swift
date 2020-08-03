@@ -10,7 +10,11 @@ import Foundation
 extension FlowKit {
     public class PipeData {
         internal var material: Materials.Material
-        public var dimension: Double
+        public var dimension: Double {
+            didSet {
+                print("Dimension changed (\(self.dimension)")
+            }
+        }
         internal var pipeShape: PipeShape
         internal var gradient: Double
         
