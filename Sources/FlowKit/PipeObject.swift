@@ -63,23 +63,25 @@ extension FlowKit {
             }
         }
         
-        public lazy var fullPipeVelocity: Double = {
-            let gravitationalAcceleration = 9.82
-            let diameter = pipeData.dimension
-            let gradient = pipeData.gradient
-            let pipeRoughness = pipeData.material.rawValue
-            let kinematicViscosity = fluid.rawValue
-            
-            switch pipeData.pipeShape {
-            case .circular:
-                let part1 = (2 * gravitationalAcceleration * diameter * gradient).squareRoot()
-                let part2 = pipeRoughness / (3.7 * diameter)
-                let part3 = (2.51 * kinematicViscosity / (diameter * part1))
-                let velocity = -2 * part1 * log10(part2 + part3)
+        public var fullPipeVelocity: Double {
+            get {
+                let gravitationalAcceleration = 9.82
+                let diameter = pipeData.dimension
+                let gradient = pipeData.gradient
+                let pipeRoughness = pipeData.material.rawValue
+                let kinematicViscosity = fluid.rawValue
                 
-                return velocity
+                switch pipeData.pipeShape {
+                case .circular:
+                    let part1 = (2 * gravitationalAcceleration * diameter * gradient).squareRoot()
+                    let part2 = pipeRoughness / (3.7 * diameter)
+                    let part3 = (2.51 * kinematicViscosity / (diameter * part1))
+                    let velocity = -2 * part1 * log10(part2 + part3)
+                    
+                    return velocity
+                }
             }
-        }()
+        }
         
         public var fullPipeFlowRate: Double {
             get {
@@ -90,18 +92,14 @@ extension FlowKit {
             }
         }
         
-        private var _theta: Double?
         private var theta: Double? {
-            set {
+            get {
                 switch pipeData.pipeShape {
                 case .circular:
-                    guard let depth = self.depth else { return }
-                    _theta = 2 * acos(1 - 2 * depth / self.pipeData.dimension)
+                    guard let depth = self.depth else { return nil }
+                    return 2 * acos(1 - 2 * depth / self.pipeData.dimension)
                 }
-            } get {
-                return _theta
             }
-
         }
         
         public var currentVelocity: Double? {
