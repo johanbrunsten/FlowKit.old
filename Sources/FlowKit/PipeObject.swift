@@ -11,7 +11,12 @@ extension FlowKit {
     public class PipeObject {
         // MARK: - Properties
         
-        public var pipeData: PipeData
+        public var pipeData: PipeData {
+            didSet {
+                print("Calculate current flow-rate")
+                currentFlowRate = calcFlowRate()
+            }
+        }
         internal var fluid: Materials.Fluid
         
         /*
@@ -116,7 +121,6 @@ extension FlowKit {
                 switch pipeData.pipeShape {
                 case .circular:
                     guard let theta = self.theta else { return nil }
-                    print("AREA: dimension \(pipeData.dimension) - theta \(theta)")
                     return pow(pipeData.dimension, 2) / 8 * (theta - sin(theta))
                 }
             }
