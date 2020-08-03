@@ -8,7 +8,7 @@
 import Foundation
 
 extension FlowKit {
-    public class PipeData {
+    public struct PipeData {
         internal var material: Materials.Material
         public var dimension: Double {
             didSet {

@@ -8,7 +8,7 @@
 import Foundation
 
 extension FlowKit {
-    public class PipeObject {
+    public struct PipeObject {
         // MARK: - Properties
         
         public var pipeData: PipeData
