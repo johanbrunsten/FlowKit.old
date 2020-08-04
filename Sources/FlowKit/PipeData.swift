@@ -9,10 +9,10 @@ import Foundation
 
 extension FlowKit {
     public class PipeData {
-        internal var material: Materials.Material
-        public var dimension: Double
-        internal var pipeShape: PipeShape
-        internal var gradient: Double
+        private(set) var material: Materials.Material
+        private(set) var dimension: Double
+        private(set) var pipeShape: PipeShape
+        private(set) var gradient: Double
         
         /// Initialize a pipe object there the friction slope is known
         /// - Warning: This initializer is only suited for pipes with a circular cross-sectional shape
