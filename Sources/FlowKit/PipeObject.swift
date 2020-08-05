@@ -11,6 +11,7 @@ extension FlowKit {
     public class PipeObject {
         // MARK: - Properties
         
+        private let gravitationalAcceleration = 9.82
         public var pipeData: PipeData
         internal var fluid: Materials.Fluid
         
@@ -65,7 +66,6 @@ extension FlowKit {
         
         public var fullPipeVelocity: Double {
             get {
-                let gravitationalAcceleration = 9.82
                 let diameter = pipeData.dimension
                 let gradient = pipeData.gradient
                 let pipeRoughness = pipeData.material.rawValue
@@ -139,6 +139,13 @@ extension FlowKit {
             }
         }
         
+        public var frictionLoss: Double? {
+            get {
+                // The equation works for all pipe shapes
+                return calcFrictionLoss()
+            }
+        }
+        
         public var frictionFactor: Double? {
             // Not certain that the equation works for different pipe shapes then circular.
             // I put it as an attribut for circular pipe shape for the moment.
@@ -201,13 +208,25 @@ extension FlowKit {
         
         /// Method for calculate the current flow in the pipe if the depth is known
         /// - Returns: Returns a double for the flow in m3/s
-        public func calcFlowRate() -> Double? {
+        private func calcFlowRate() -> Double? {
             guard let depth = self.depth else { return nil }
             let partFull = depth / self.pipeData.dimension
             
             // The flow is calculated using Bretting's equation
             let partFlowRate = 0.46 - 0.5 * cos(Double.pi * partFull) + 0.04 * cos(2 * Double.pi * partFull)
             return partFlowRate * fullPipeFlowRate
+        }
+        
+        private func calcFrictionLoss() -> Double? {
+            guard let frictionFactor = self.frictionFactor,
+                let hydraulicRadius = self.hydraulicRadius,
+                let currentVelocity = self.currentVelocity else { return nil }
+            
+            // Calculate the friction loss in the pipe
+            // using Darcy-Weisbach equation
+            // (Dimension is replaced with 4 x Hydraulic Radius)
+            let hf = frictionFactor * pipeData.length / (4 * hydraulicRadius) * pow(currentVelocity, 2) / (2 * gravitationalAcceleration)
+            return hf
         }
         
         /// A method for calculating the friction factor for a pipe using Colebrook equation

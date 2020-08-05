@@ -4,7 +4,7 @@ import XCTest
 final class FlowKitTests: XCTestCase {
     
     func testPipeData() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, length: 10, gradient: 0.01, pipeShape: .circular)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water)
         XCTAssertEqual(round(pipeObject.fullPipeVelocity * 100) / 100, 1.22)
         
@@ -14,7 +14,7 @@ final class FlowKitTests: XCTestCase {
     }
     
     func testPartFullPipe() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, length: 10, gradient: 0.01, pipeShape: .circular)
         var pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water)
         XCTAssertEqual(round(pipeObject.fullPipeFlowRate * 1000) / 1000, 0.048)
         
@@ -30,11 +30,10 @@ final class FlowKitTests: XCTestCase {
             return
         }
         XCTAssertEqual(round(partFull * 10000) / 10000, 0.0499)
-        
     }
     
     func testReynoldsNumber() {
-        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, pipeShape: .circular, gradient: 0.01)
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, length: 10, gradient: 0.01, pipeShape: .circular)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water)
         
         guard let frictionFactor = pipeObject.frictionFactor else {
@@ -44,7 +43,7 @@ final class FlowKitTests: XCTestCase {
     }
     
     func testBrettingsFormula() {
-        let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, pipeShape: .circular, z1: 0.12, z2: 0.42, length: 14.7)
+        let pipe = FlowKit.PipeData(material: .plastic, dimension: 0.250, length: 14.7, z1: 0.12, z2: 0.42, pipeShape: .circular)
         let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, currentFlow: 0.06)
         
         
@@ -56,11 +55,19 @@ final class FlowKitTests: XCTestCase {
         }
         XCTAssertEqual(round(frictionFactor * 100000) / 100000, 0.01949)
     }
+    
+    func testFrictionLoss() {
+        let pipe = FlowKit.PipeData(material: .concrete, dimension: 0.225, length: 10, gradient: 0.01, pipeShape: .circular)
+        let pipeObject = FlowKit.PipeObject(pipeData: pipe, fluid: .water, depth: 0.15)
+        guard let frictionLoss = pipeObject.frictionLoss else { return }
+        XCTAssertEqual(round(frictionLoss * 100) / 100, 0.08)
+    }
 
     static var allTests = [
         ("testPipeData", testPipeData),
         ("testPartFullPipe", testPartFullPipe),
         ("testReynoldsNumber", testReynoldsNumber),
-        ("testBrettingsFormula", testBrettingsFormula)
+        ("testBrettingsFormula", testBrettingsFormula),
+        ("testFrictionLoss", testFrictionLoss)
     ]
 }
