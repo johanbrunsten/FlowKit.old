@@ -11,13 +11,7 @@ extension FlowKit {
     public class PipeObject {
         // MARK: - Properties
         
-        public var pipeData: PipeData {
-            willSet {
-                print("WillSet pipeData")
-            } didSet {
-                print("DidSet pipeData")
-            }
-        }
+        public var pipeData: PipeData
         internal var fluid: Materials.Fluid
         
         /*
@@ -127,7 +121,7 @@ extension FlowKit {
             }
         }
         
-        private var wettedPerimeter: Double? {
+        public var wettedPerimeter: Double? {
             get {
                 switch pipeData.pipeShape {
                 case .circular:
@@ -137,7 +131,7 @@ extension FlowKit {
             }
         }
         
-        private var hydraulicRadius: Double? {
+        public var hydraulicRadius: Double? {
             get {
                 // The equation works for all pipe shapes
                 guard let area = self.area, let wettedPerimeter = self.wettedPerimeter else { return nil }
