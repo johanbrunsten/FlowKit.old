@@ -58,7 +58,7 @@
 		333DAAF924B768B600A53DA2 /* DegreesToRadians.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreesToRadians.swift; sourceTree = "<group>"; };
 		33B3B86324B3815B001ED77B /* PipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeData.swift; sourceTree = "<group>"; };
 		33B3B86624B4E503001ED77B /* HydraulicEquations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydraulicEquations.swift; sourceTree = "<group>"; };
-		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"FlowKit::FlowKitTests::Product" /* FlowKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FlowKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_12 /* FlowKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
@@ -286,6 +286,7 @@
 		OBJ_20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +315,7 @@
 		OBJ_21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
