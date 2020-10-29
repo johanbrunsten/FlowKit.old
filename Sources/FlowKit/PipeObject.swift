@@ -27,7 +27,7 @@ extension FlowKit {
                 if newValue ?? .nan <= pipeData.dimension {
                     // Assign the new value and calculate the flow-rate
                     _depth = newValue
-                    self._currentFlowRate = calcFlowRate()
+                    self._currentFlowRate = calculateFlowRate()
                 } else {
                     // Can't assign the value - set current values to nil and print a message
                     print("\(String(describing: newValue)) is larger than the pipe dimension (\(self.pipeData.dimension)) and is not valid")
@@ -51,7 +51,7 @@ extension FlowKit {
                 if newValue ?? .nan <= self.fullPipeFlowRate {
                     // Assign the new value and calculate the new depth
                     _currentFlowRate = newValue
-                    self._depth = calcDepth()
+                    self._depth = calculateDepth()
                 } else {
                     // Can't assign the value - set current values to nil and print a message
                     print("\(String(describing: newValue)) is larger than maximum flow-rate (\(self.fullPipeFlowRate)) and is not valid")
@@ -142,7 +142,7 @@ extension FlowKit {
         public var frictionLoss: Double? {
             get {
                 // The equation works for all pipe shapes
-                return calcFrictionLoss()
+                return calculateFrictionLoss()
             }
         }
         
@@ -152,7 +152,7 @@ extension FlowKit {
             get {
                 switch pipeData.pipeShape {
                 case .circular:
-                    return calcFrictionFactor()
+                    return calculateFrictionFactor()
                 }
             }
         }
@@ -196,7 +196,7 @@ extension FlowKit {
         
         /// Method for calculate the depth in the pipe if the current flow is known
         /// - Returns: Returns a double for the depth in meter
-        private func calcDepth() -> Double? {
+        private func calculateDepth() -> Double? {
             guard let currentFlowRate = self.currentFlowRate else {
                 return nil }
             let partFullFlowRate = currentFlowRate / fullPipeFlowRate
@@ -208,7 +208,7 @@ extension FlowKit {
         
         /// Method for calculate the current flow in the pipe if the depth is known
         /// - Returns: Returns a double for the flow in m3/s
-        private func calcFlowRate() -> Double? {
+        private func calculateFlowRate() -> Double? {
             guard let depth = self.depth else { return nil }
             let partFull = depth / self.pipeData.dimension
             
@@ -217,22 +217,22 @@ extension FlowKit {
             return partFlowRate * fullPipeFlowRate
         }
         
-        private func calcFrictionLoss() -> Double? {
+        /// A method for calculating the friction loss for a pipe using Darcy-Weisbach equation
+        /// - Returns: Returns a double with the friction loss in meter
+        private func calculateFrictionLoss() -> Double? {
             guard let frictionFactor = self.frictionFactor,
                 let hydraulicRadius = self.hydraulicRadius,
                 let currentVelocity = self.currentVelocity else { return nil }
             
-            // Calculate the friction loss in the pipe
-            // using Darcy-Weisbach equation
-            // (Dimension is replaced with 4 x Hydraulic Radius)
+            // Dimension is replaced with 4 x Hydraulic Radius
             let hf = frictionFactor * pipeData.length / (4 * hydraulicRadius) * pow(currentVelocity, 2) / (2 * gravitationalAcceleration)
             return hf
         }
         
         /// A method for calculating the friction factor for a pipe using Colebrook equation
         /// - Returns: Returns a double with the friction factor
-        private func calcFrictionFactor() -> Double? {
-            // Special thank to
+        private func calculateFrictionFactor() -> Double? {
+            // A special thanks to
             // http://maleyengineeringprojects.weebly.com/moody-chart-calculator-design.html
             // for providing the formula
             
