@@ -1,5 +1,5 @@
 # FlowKit
-FlowKit is a framework for calculate the hydraulic gradient in a pipe. The framework is designed for urban drainage but should be functinally for other simularly applications.
+FlowKit is a framework, written in Swift, for calculate the hydraulics in a pipe. The framework is designed for urban drainage but should be functinally for other simularly applications.
 ## Features
 Calculate the flow and/or depth, velocity, friction loss and friction factor, both for maximum pipe flow and part-full pipe flow.
 ## How to use
@@ -18,3 +18,5 @@ let frictionFactor = pipeObject.frictionFactor
 In Xcode select File ⭢ Swift Packages ⭢ Add Package Dependency...
 Copy-paste repository URL: https://github.com/johanbrunsten/FlowKit
 Hit Next two times and then Finish
+## Example
+![Gif of the FlowKit framework used in a demo app](https://media.giphy.com/media/vcDmkdXkNPV0kPY0Wz/giphy.gif | width=222)
