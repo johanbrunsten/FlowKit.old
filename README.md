@@ -19,4 +19,4 @@ In Xcode select File ⭢ Swift Packages ⭢ Add Package Dependency...
 Copy-paste repository URL: https://github.com/johanbrunsten/FlowKit
 Hit Next two times and then Finish
 ## Example
-![Video of the FlowKit framework used in a demo app](Demo/FlowKit.gif =250x)
+<img src="Demo/FlowKit.gif" width="250" height="541" />
