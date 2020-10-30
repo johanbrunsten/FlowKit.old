@@ -52,6 +52,7 @@
 		3315D99524B8744D003AE0D8 /* Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Materials.swift; sourceTree = "<group>"; };
 		3315D99B24BFA51A003AE0D8 /* PipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeObject.swift; sourceTree = "<group>"; };
 		33B3B86324B3815B001ED77B /* PipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeData.swift; sourceTree = "<group>"; };
+		33CC2EEB254C71E900462F23 /* FlowKit.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FlowKit.gif; sourceTree = "<group>"; };
 		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"FlowKit::FlowKitTests::Product" /* FlowKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FlowKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_12 /* FlowKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitTests.swift; sourceTree = "<group>"; };
@@ -88,6 +89,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		33CC2EEA254C71DA00462F23 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				33CC2EEB254C71E900462F23 /* FlowKit.gif */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +127,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				33CC2EEA254C71DA00462F23 /* Demo */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_10 /* Tests */,
