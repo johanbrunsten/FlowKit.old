@@ -59,7 +59,7 @@
 		33CC2EEB254C71E900462F23 /* FlowKit.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FlowKit.gif; sourceTree = "<group>"; };
 		33CC2EF6254EFDEF00462F23 /* Hydraulics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hydraulics.swift; sourceTree = "<group>"; };
 		33CC2F04254EFE6400462F23 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		33CC2F0A254F00BB00462F23 /* PipeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeNetwork.swift; sourceTree = "<group>"; };
+		33CC2F0A254F00BB00462F23 /* PipeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeNetwork.swift; sourceTree = "<group>"; usesTabs = 0; };
 		33CC2F10254F032900462F23 /* FlowKitNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitNodeTests.swift; sourceTree = "<group>"; };
 		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"FlowKit::FlowKitTests::Product" /* FlowKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FlowKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
