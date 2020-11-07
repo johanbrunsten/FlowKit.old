@@ -8,7 +8,7 @@
 import Foundation
 
 extension FlowKit {
-    public class PipeObject {
+    public class PipeObject: Hydraulics {
         // MARK: - Properties
         
         private let gravitationalAcceleration = 9.82

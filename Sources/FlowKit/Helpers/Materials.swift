@@ -20,4 +20,8 @@ public struct Materials {
         case air = 0.00001494
         case crankcaseOil = 0.0000198
     }
+    
+    public enum NodeType {
+        case breakpoint
+    }
 }

@@ -4,7 +4,7 @@ import XCTest
 public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(FlowKitTests.allTests),
-        testCase(PipeObjectTests.allTests)
+        testCase(FlowKitNodeTests.allTests)
     ]
 }
 #endif

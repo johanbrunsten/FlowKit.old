@@ -24,6 +24,10 @@
 		3315D99624B8744D003AE0D8 /* Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315D99524B8744D003AE0D8 /* Materials.swift */; };
 		3315D99C24BFA51A003AE0D8 /* PipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315D99B24BFA51A003AE0D8 /* PipeObject.swift */; };
 		33B3B86424B3815B001ED77B /* PipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B3B86324B3815B001ED77B /* PipeData.swift */; };
+		33CC2EF7254EFDEF00462F23 /* Hydraulics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC2EF6254EFDEF00462F23 /* Hydraulics.swift */; };
+		33CC2F05254EFE6400462F23 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC2F04254EFE6400462F23 /* Node.swift */; };
+		33CC2F0B254F00BB00462F23 /* PipeNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC2F0A254F00BB00462F23 /* PipeNetwork.swift */; };
+		33CC2F11254F032900462F23 /* FlowKitNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC2F10254F032900462F23 /* FlowKitNodeTests.swift */; };
 		OBJ_23 /* FlowKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* FlowKit.swift */; };
 		OBJ_30 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_41 /* FlowKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* FlowKitTests.swift */; };
@@ -53,6 +57,10 @@
 		3315D99B24BFA51A003AE0D8 /* PipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeObject.swift; sourceTree = "<group>"; };
 		33B3B86324B3815B001ED77B /* PipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeData.swift; sourceTree = "<group>"; };
 		33CC2EEB254C71E900462F23 /* FlowKit.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FlowKit.gif; sourceTree = "<group>"; };
+		33CC2EF6254EFDEF00462F23 /* Hydraulics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hydraulics.swift; sourceTree = "<group>"; };
+		33CC2F04254EFE6400462F23 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		33CC2F0A254F00BB00462F23 /* PipeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeNetwork.swift; sourceTree = "<group>"; };
+		33CC2F10254F032900462F23 /* FlowKitNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitNodeTests.swift; sourceTree = "<group>"; };
 		"FlowKit::FlowKit::Product" /* FlowKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlowKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"FlowKit::FlowKitTests::Product" /* FlowKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FlowKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_12 /* FlowKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowKitTests.swift; sourceTree = "<group>"; };
@@ -97,6 +105,14 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
+		33CC2EF5254EFDDD00462F23 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				33CC2EF6254EFDEF00462F23 /* Hydraulics.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_12 /* FlowKitTests.swift */,
+				33CC2F10254F032900462F23 /* FlowKitNodeTests.swift */,
 				OBJ_13 /* XCTestManifests.swift */,
 			);
 			name = FlowKitTests;
@@ -147,10 +164,13 @@
 		OBJ_8 /* FlowKit */ = {
 			isa = PBXGroup;
 			children = (
+				33CC2EF5254EFDDD00462F23 /* Protocols */,
 				333DAACA24B6581500A53DA2 /* Helpers */,
 				OBJ_9 /* FlowKit.swift */,
 				33B3B86324B3815B001ED77B /* PipeData.swift */,
 				3315D99B24BFA51A003AE0D8 /* PipeObject.swift */,
+				33CC2F04254EFE6400462F23 /* Node.swift */,
+				33CC2F0A254F00BB00462F23 /* PipeNetwork.swift */,
 			);
 			name = FlowKit;
 			path = Sources/FlowKit;
@@ -244,7 +264,10 @@
 				OBJ_23 /* FlowKit.swift in Sources */,
 				3315D99624B8744D003AE0D8 /* Materials.swift in Sources */,
 				33B3B86424B3815B001ED77B /* PipeData.swift in Sources */,
+				33CC2F05254EFE6400462F23 /* Node.swift in Sources */,
 				3315D99C24BFA51A003AE0D8 /* PipeObject.swift in Sources */,
+				33CC2F0B254F00BB00462F23 /* PipeNetwork.swift in Sources */,
+				33CC2EF7254EFDEF00462F23 /* Hydraulics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +285,7 @@
 			files = (
 				OBJ_41 /* FlowKitTests.swift in Sources */,
 				OBJ_42 /* XCTestManifests.swift in Sources */,
+				33CC2F11254F032900462F23 /* FlowKitNodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
