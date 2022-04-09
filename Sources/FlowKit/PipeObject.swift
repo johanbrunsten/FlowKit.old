@@ -68,8 +68,8 @@ extension FlowKit {
             get {
                 let diameter = pipeData.dimension
                 let gradient = pipeData.gradient
-                let pipeRoughness = pipeData.material.rawValue
-                let kinematicViscosity = fluid.rawValue
+                let pipeRoughness = pipeData.material.value.pipeRoughness
+                let kinematicViscosity = fluid.value.kinematicViscosity
                 
                 switch pipeData.pipeShape {
                 case .circular:
@@ -131,10 +131,10 @@ extension FlowKit {
             }
         }
         
-        public var hydraulicRadius: Double? {
+        public var hydraulicRadius: Double {
             get {
                 // The equation works for all pipe shapes
-                guard let area = self.area, let wettedPerimeter = self.wettedPerimeter else { return nil }
+                guard let area = self.area, let wettedPerimeter = self.wettedPerimeter else { return 0 }
                 return area / wettedPerimeter
             }
         }
@@ -154,6 +154,13 @@ extension FlowKit {
                 case .circular:
                     return calculateFrictionFactor()
                 }
+            }
+        }
+        
+        public var shearStress: Double {
+            get {
+                // The equation works for all pipe shapes
+                return calculateShearStress()
             }
         }
         
@@ -221,11 +228,10 @@ extension FlowKit {
         /// - Returns: Returns a double with the friction loss in meter
         private func calculateFrictionLoss() -> Double? {
             guard let frictionFactor = self.frictionFactor,
-                let hydraulicRadius = self.hydraulicRadius,
                 let currentVelocity = self.currentVelocity else { return nil }
             
             // Dimension is replaced with 4 x Hydraulic Radius
-            let hf = frictionFactor * pipeData.length / (4 * hydraulicRadius) * pow(currentVelocity, 2) / (2 * gravitationalAcceleration)
+            let hf = frictionFactor * pipeData.length / (4 * self.hydraulicRadius) * pow(currentVelocity, 2) / (2 * gravitationalAcceleration)
             return hf
         }
         
@@ -241,7 +247,7 @@ extension FlowKit {
             // velocity) the equation will use the velocity for a pipe
             // with the whole cross-section filled
             let velocity = self.currentVelocity ?? self.fullPipeVelocity
-            let reynoldsNumber = velocity * pipeData.dimension / fluid.rawValue
+            let reynoldsNumber = velocity * pipeData.dimension / fluid.value.kinematicViscosity
             
             if (reynoldsNumber <= 2300) {
                 // If RN is 2300 or lower the flow is laminar and a
@@ -257,7 +263,7 @@ extension FlowKit {
             // If RN is above 4000 the flow is turbulent and can be
             // calculated with a more cumbersome equation then for
             // a laminar flow
-            let relativeRoughness = pipeData.material.rawValue / pipeData.dimension
+            let relativeRoughness = pipeData.material.value.pipeRoughness / pipeData.dimension
             
             var x: Double
             var y: Double
@@ -280,6 +286,17 @@ extension FlowKit {
             
             let frictionFactor = 1 / pow(x, 2)
             return frictionFactor
+        }
+        
+        /// A method for calculating the tau value to determine
+        /// if the pipe is self-cleaning or not (minimum shear stress)
+        /// - Returns: Returns a double for the newton in square meter (N/m2)
+        private func calculateShearStress() -> Double {
+            let density = fluid.value.density
+            let gravity = 9.82
+            
+            let tau = density * gravity * hydraulicRadius * pipeData.gradient
+            return tau
         }
     }
 }
